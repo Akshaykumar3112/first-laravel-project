@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\frontend\IndexController;
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +29,35 @@ use App\Http\Controllers\frontend\IndexController;
     Route::post('/profile/update',[AdminProfileController::class, 'AdminProfileUpdate'])->name('admin.profile.update')->middleware('admin');
     Route::get('/change/password',[AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password')->middleware('admin');
     Route::post('/new/password',[AdminProfileController::class, 'AdminNewPassword'])->name('admin.new.password')->middleware('admin');    
+                        
     });
 
+ //----- Admin All brand Routs ------
+ Route :: prefix('brand')->group(function (){
+    Route::get('/view',[BrandController::class, 'BrandView'])->name('all.brand')->middleware('admin');
+    Route::post('/store',[BrandController::class, 'BrandStore'])->name('brand.store')->middleware('admin');
+    Route::get('/edit/{id}',[BrandController::class, 'BrandEdit'])->name('brand.edit')->middleware('admin');
+    Route::get('/delete/{id}',[BrandController::class, 'BrandDelete'])->name('brand.delete')->middleware('admin');
+    Route::post('/update',[BrandController::class, 'BrandUpdate'])->name('brand.update')->middleware('admin');
+ });
+/*------End Admin Route-------- */
 
+//----- Admin All Category Routs ------
+Route :: prefix('category')->group(function (){
+    Route::get('/view',[CategoryController::class, 'CategoryView'])->name('all.category')->middleware('admin');
+    Route::post('/store',[CategoryController::class, 'CategoryStore'])->name('category.store')->middleware('admin');
+    Route::get('/edit/{id}',[CategoryController::class, 'CategoryEdit'])->name('category.edit')->middleware('admin');
+    Route::get('/delete/{id}',[CategoryController::class, 'CategoryDelete'])->name('category.delete')->middleware('admin');
+    Route::post('/update',[CategoryController::class, 'CategoryUpdate'])->name('category.update')->middleware('admin');
+    
+    // Sub Category Routs
+    Route::get('/sub/view',[SubCategoryController::class, 'SubCategoryView'])->name('all.subcategory')->middleware('admin');
+    Route::post('/sub/store',[SubCategoryController::class, 'SubCategoryStore'])->name('subcategory.store')->middleware('admin');
+    Route::get('/sub/edit/{id}',[SubCategoryController::class, 'SubcategoryEdit'])->name('subcategory.edit')->middleware('admin');
+    Route::get('/sub/delete/{id}',[SubCategoryController::class, 'SubcategoryDelete'])->name('subcategory.delete')->middleware('admin');
+    Route::post('sub/update',[SubCategoryController::class, 'SubcategoryUpdate'])->name('subcategory.update')->middleware('admin');
 
+});
 /*------End Admin Route-------- */
 
 
@@ -59,8 +87,8 @@ require __DIR__.'/auth.php';
 
                 //-----User Cahnge Password -----
 
-Route::get('/user/change/password',[IndexController::class, 'UserChangePassword'])->name('user.change.password');
-Route::post('/user/password/update',[IndexController::class, 'UserPasswordUpdate'])->name('user.password.update');
+Route::get('/user/change/password',[IndexController::class, 'UserChangePassword'])->name('user.change.password')->middleware('auth');
+Route::post('/user/password/update',[IndexController::class, 'UserPasswordUpdate'])->name('user.password.update')->middleware('auth');
 
 
 //--------------------------     ------------------------
