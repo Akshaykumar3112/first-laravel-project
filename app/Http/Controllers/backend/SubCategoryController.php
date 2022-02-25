@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SubCategory;
+use App\Models\SubSubCategory;
 use App\Models\Category;
 
 
@@ -48,7 +49,7 @@ class SubCategoryController extends Controller
         return view('backend.category.subcategory_edit',compact('categories','subcategory'));
     }
 
-    public function SubcategoryUpdate(Request $request){
+    public function SubCategoryUpdate(Request $request){
         $data = SubCategory::findOrFail($request->id);
         $data->category_id = $request->category_id;
         $data->subcategory_name = $request->subcategory_name;
@@ -65,5 +66,72 @@ class SubCategoryController extends Controller
         );
         return redirect()->route('all.subcategory')->with($notification);       
     }
+
+    // ------------------- Sub Sub Category
+    // View Sub-Sub Category Data
+    public function SubSubCategoryView(){
+        $categories = Category::orderBy('category_name','ASC')->get();
+        $subsubcategory = SubSubCategory::latest()->get();
+
+        return view('backend.category.sub_subcategory_view',compact('subsubcategory','categories'));
+    }// End Function
+
+    // Add Sub-SubCategory Data
+    public function SubSubCategoryStore(Request $request){
+        $request->validate([                // Data validation
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
+            'subsubcategory_name' => 'required',
+        ]);
+        
+        SubSubCategory::insert([                  //Data Insertion
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+            'subsubcategory_name' => $request->subsubcategory_name,
+        ]);
+                                            //success Message     
+        $notification = array(
+            'message' => 'Category Inserted Successfuly',
+            'alert-type' => 'success'        
+        );
+
+        return redirect()->back()->with($notification);
+    }// End Function
+     
+    public function SubSubCategoryDelete($id){
+        SubSubCategory::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Brand Inserted Successfuly',
+            'alert-type' => 'success'        
+        );
+        return redirect()->route('all.subsubcategory')->with($notification);
+    }
+
+    // View Sub-SubCategory Edit 
+    public function SubSubCategoryEdit($id){
+        $categories = Category::orderBy('category_name','ASC')->get();
+        $subcategory = SubCategory::orderBy('subcategory_name','ASC')->get();
+        $subsubcategory = SubSubCategory::findOrFail($id);
+
+        return view('backend.category.sub_subcategory_edit',compact('categories','subcategory','subsubcategory'));
+    }
+
+    // Update Sub-SubCategory
+    public function SubSubCategoryUpdate(Request $request){
+        $data = SubSubCategory::findOrFail($request->id);
+        $data->category_id = $request->category_id;
+        $data->subcategory_id = $request->subcategory_id;
+        $data->subsubcategory_name = $request->subsubcategory_name;
+
+        $data->save();
+        return redirect()->route('all.subsubcategory');
+
+    }
+
+    // Get Sub Category to Load DropDown With JavaScript
+    public function GetSubCategory($category_id){
+        $data = SubCategory::where('category_id',$category_id)->orderBy('subcategory_name','ASC')->get();
+        return json_encode($data);
+    } // End Function
 }
 
