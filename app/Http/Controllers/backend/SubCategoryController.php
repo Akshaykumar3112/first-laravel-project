@@ -40,15 +40,17 @@ class SubCategoryController extends Controller
         );
 
         return redirect()->back()->with($notification);
-    }
+    }//End Function
 
+    // View Page For Edit SubCategory
     public function SubCategoryEdit($id){
         $categories = Category::orderBy('category_name','ASC')->get();
         $subcategory = SubCategory::findOrFail($id);
 
         return view('backend.category.subcategory_edit',compact('categories','subcategory'));
-    }
+    }//End Function
 
+    //Update SubCategory
     public function SubCategoryUpdate(Request $request){
         $data = SubCategory::findOrFail($request->id);
         $data->category_id = $request->category_id;
@@ -56,8 +58,9 @@ class SubCategoryController extends Controller
 
         $data->save();
         return redirect()->route('all.subcategory');
-    }
+    }// End Function
 
+    // Delete SubCategory
     public function SubCategoryDelete($id){
         SubCategory::findOrFail($id)->delete();
         $notification = array(
@@ -65,7 +68,7 @@ class SubCategoryController extends Controller
             'alert-type' => 'success'        
         );
         return redirect()->route('all.subcategory')->with($notification);       
-    }
+    }//End Function
 
     // ------------------- Sub Sub Category
     // View Sub-Sub Category Data
@@ -105,7 +108,7 @@ class SubCategoryController extends Controller
             'alert-type' => 'success'        
         );
         return redirect()->route('all.subsubcategory')->with($notification);
-    }
+    }//End Function
 
     // View Sub-SubCategory Edit 
     public function SubSubCategoryEdit($id){
@@ -114,7 +117,7 @@ class SubCategoryController extends Controller
         $subsubcategory = SubSubCategory::findOrFail($id);
 
         return view('backend.category.sub_subcategory_edit',compact('categories','subcategory','subsubcategory'));
-    }
+    }//End Function
 
     // Update Sub-SubCategory
     public function SubSubCategoryUpdate(Request $request){
@@ -126,7 +129,7 @@ class SubCategoryController extends Controller
         $data->save();
         return redirect()->route('all.subsubcategory');
 
-    }
+    }//End Function
 
     // Get Sub Category to Load DropDown With JavaScript
     public function GetSubCategory($category_id){

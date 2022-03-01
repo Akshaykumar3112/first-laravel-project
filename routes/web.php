@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\SubCategoryController;
+use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\frontend\IndexController;
 /*
 |--------------------------------------------------------------------------
@@ -44,29 +45,39 @@ use App\Http\Controllers\frontend\IndexController;
 
 //----- Admin All Category Routs ------
 Route :: prefix('category')->group(function (){
-    Route::get('/view',[CategoryController::class, 'CategoryView'])->name('all.category')->middleware('admin');
-    Route::post('/store',[CategoryController::class, 'CategoryStore'])->name('category.store')->middleware('admin');
-    Route::get('/edit/{id}',[CategoryController::class, 'CategoryEdit'])->name('category.edit')->middleware('admin');
-    Route::get('/delete/{id}',[CategoryController::class, 'CategoryDelete'])->name('category.delete')->middleware('admin');
-    Route::post('/update',[CategoryController::class, 'CategoryUpdate'])->name('category.update')->middleware('admin');
+    Route::get('/view',[CategoryController::class, 'CategoryView'])->name('all.category')->middleware('admin'); // View All Category
+    Route::post('/store',[CategoryController::class, 'CategoryStore'])->name('category.store')->middleware('admin'); // Store Category
+    Route::get('/edit/{id}',[CategoryController::class, 'CategoryEdit'])->name('category.edit')->middleware('admin'); // View Category Edit Page
+    Route::get('/delete/{id}',[CategoryController::class, 'CategoryDelete'])->name('category.delete')->middleware('admin'); // Delete Category 
+    Route::post('/update',[CategoryController::class, 'CategoryUpdate'])->name('category.update')->middleware('admin'); // Update Category
     
     // Sub Category Routs
-    Route::get('/sub/view',[SubCategoryController::class, 'SubCategoryView'])->name('all.subcategory')->middleware('admin');
-    Route::post('/sub/store',[SubCategoryController::class, 'SubCategoryStore'])->name('subcategory.store')->middleware('admin');
-    Route::get('/sub/edit/{id}',[SubCategoryController::class, 'SubCategoryEdit'])->name('subcategory.edit')->middleware('admin');
-    Route::get('/sub/delete/{id}',[SubCategoryController::class, 'SubCategoryDelete'])->name('subcategory.delete')->middleware('admin');
-    Route::post('sub/update',[SubCategoryController::class, 'SubCategoryUpdate'])->name('subcategory.update')->middleware('admin');
+    Route::get('/sub/view',[SubCategoryController::class, 'SubCategoryView'])->name('all.subcategory')->middleware('admin'); // View All SubCategory 
+    Route::post('/sub/store',[SubCategoryController::class, 'SubCategoryStore'])->name('subcategory.store')->middleware('admin'); // Store SbCategory
+    Route::get('/sub/edit/{id}',[SubCategoryController::class, 'SubCategoryEdit'])->name('subcategory.edit')->middleware('admin'); // View SubCategory Edit Page
+    Route::get('/sub/delete/{id}',[SubCategoryController::class, 'SubCategoryDelete'])->name('subcategory.delete')->middleware('admin'); // Delete SubCategory
+    Route::post('sub/update',[SubCategoryController::class, 'SubCategoryUpdate'])->name('subcategory.update')->middleware('admin'); // Update SubCategory
 
 
     //Sus Sub Category Routs
-    Route::get('/sub/sub/view',[SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory')->middleware('admin');
-    Route::post('/sub/sub/store',[SubCategoryController::class, 'SubSubCategoryStore'])->name('sub.subcategory.store')->middleware('admin');
-    Route::get('/sub/sub/edit/{id}',[SubCategoryController::class, 'SubSubCategoryEdit'])->name('subsubcategory.edit')->middleware('admin');
-    Route::get('/sub/sub/delete/{id}',[SubCategoryController::class, 'SubSubCategoryDelete'])->name('subsubcategory.delete')->middleware('admin');
-    Route::post('/sub/sub/update',[SubCategoryController::class, 'SubSubCategoryUpdate'])->name('sub.subcategory.update')->middleware('admin');
+    Route::get('/sub/sub/view',[SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory')->middleware('admin');    // View All Sub-SubCategory
+    Route::post('/sub/sub/store',[SubCategoryController::class, 'SubSubCategoryStore'])->name('sub.subcategory.store')->middleware('admin');  // Store Sub-SubCategory
+    Route::get('/sub/sub/edit/{id}',[SubCategoryController::class, 'SubSubCategoryEdit'])->name('subsubcategory.edit')->middleware('admin'); // View Sub-SubCategory Edit Page
+    Route::get('/sub/sub/delete/{id}',[SubCategoryController::class, 'SubSubCategoryDelete'])->name('subsubcategory.delete')->middleware('admin'); // Delete Sub-SubCategory
+    Route::post('/sub/sub/update',[SubCategoryController::class, 'SubSubCategoryUpdate'])->name('sub.subcategory.update')->middleware('admin'); // Update Sub-SubCategory
 
-    Route::get('/subcategory/ajax/{category_id}',[SubCategoryController::class, 'GetSubCategory']);
+    Route::get('/subcategory/ajax/{category_id}',[SubCategoryController::class, 'GetSubCategory']); // Get Sub Category for to load Drop Down 
+}); // End Category Route
+
+// Products Route
+Route :: prefix('product')->group(function (){
+    Route::get('/add',[ProductController::class, 'AddProduct'])->name('add-product')->middleware('admin'); // View Page For Add Product
+
 });
+
+//End Products Routs
+
+
 /*------End Admin Route-------- */
 
 
