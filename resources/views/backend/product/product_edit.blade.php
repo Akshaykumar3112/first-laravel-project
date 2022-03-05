@@ -32,7 +32,7 @@
                                             <select name="brand_id" class="form-control">
 										        <option value="" selected="" disabled="" >Select Brand</option>
 										        @foreach($brands as $brand)
-                                                <option value="{{$brand->id}}"> {{$brand->brand_name}}</option>
+                                                <option value="{{$brand->id}}" {{$brand->id == $product->brand_id ? 'selected' : ''}} > {{$brand->brand_name}}</option>
                                                 @endforeach
                                             </select>
                                     
@@ -51,7 +51,7 @@
                                             <select name="category_id" class="form-control">
 										        <option value="" selected="" disabled="" >Select Category</option>
 										        @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                                <option value="{{$category->id}}" {{$category->id == $product->category_id ? 'selected' : ''}}>{{$category->category_name}}</option>
                                                 @endforeach
                                             </select>
                                     
@@ -67,7 +67,7 @@
 								        <h5>Sub-Category <span class="text-danger">*</span></h5>
 								        <div class="controls">
                                             <select name="subcategory_id" class="form-control">
-										        <option value="" selected="" disabled="" >Select SubCategory</option>
+										        <option value="{{$product->subcategory_id}}" selected="" disabled="" >{{$product['subcategory']['subcategory_name']}}</option>
                                              </select>
                                     
                                             @error('subcategory_id') 
@@ -83,7 +83,7 @@
 								        <div class="controls">
 									
                                             <select name="subsubcategory_id" class="form-control">
-										        <option value="" selected="" disabled="" >Select Sub-SubCategory</option>
+										        <option value="{{$product->subsubcategory_id}}" selected="" disabled="" >{{$product['subsubcategory']['subsubcategory_name']}} </option>
                                             </select>
                                     
                                             @error('subsubcategory_id') 
@@ -99,7 +99,7 @@
                                 <div class="form-group">
 								    <h5>Product Name <span class="text-danger">*</span></h5>
 								    <div class="controls">
-									    <input type="text" name="product_name" class="form-control"> 
+									    <input type="text" value="{{$product->product_name ? $product->product_name : ''  }}" name="product_name" class="form-control"> 
                                         @error('product_name') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -111,7 +111,7 @@
                                 <div class="form-group">
 								    <h5>Product Code <span class="text-danger">*</span></h5>
 								    <div class="controls">
-									    <input type="text" name="product_code" class="form-control"> 
+									    <input type="text" name="product_code" value="{{$product->product_code ? $product->product_code : ''  }}" class="form-control"> 
                                         @error('product_code') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -126,7 +126,7 @@
                                 <div class="form-group">
 								    <h5>Product Quantity <span class="text-danger">*</span></h5>
 								    <div class="controls">
-									    <input type="text" name="product_qty" class="form-control"> 
+									    <input type="text" name="product_qty" value="{{$product->product_qty ? $product->product_qty : ''  }}" class="form-control"> 
                                         @error('product_qty') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -139,7 +139,7 @@
 								    <h5>Product Tags <span class="text-danger">*</span></h5>
 								    <div class="controls">
                                         <div class="tags-default">
-					                	    <input type="text" name="product_tags" value="" data-role="tagsinput" placeholder="add tags"  /> 
+					                	    <input type="text" name="product_tags" value="{{$product->product_tags ? $product->product_tags : ''  }}" data-role="tagsinput" placeholder="add tags"  /> 
                                             @error('product_tags') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -154,7 +154,7 @@
                                 <div class="form-group">
 								    <h5>Product Size <span class="text-danger">*</span></h5>
 								    <div class="controls">
-									    <input type="text" name="product_size" class="form-control"> 
+									    <input type="text" name="product_size" value="{{$product->product_size ? $product->product_size : ''  }}" class="form-control"> 
                                         @error('product_size') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -165,7 +165,7 @@
                                 <div class="form-group">
 								    <h5>Product Color <span class="text-danger">*</span></h5>
 								    <div class="controls">
-									    <input type="text" name="product_color" class="form-control"> 
+									    <input type="text" name="product_color" value="{{$product->product_color ? $product->product_color : ''  }}" class="form-control"> 
                                         @error('product_color') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -179,7 +179,7 @@
                                 <div class="form-group">
 								    <h5>Selling Price<span class="text-danger">*</span></h5>
 								    <div class="controls">
-									    <input type="text" name="selling_price" class="form-control"> 
+									    <input type="text" name="selling_price" value="{{$product->selling_price ? $product->selling_price : ''  }}" class="form-control"> 
                                         @error('selling_price') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -190,7 +190,7 @@
                                 <div class="form-group">
 								    <h5>Discount Price <span class="text-danger">*</span></h5>
 								    <div class="controls">
-									    <input type="text" name="discount_price" class="form-control"> 
+									    <input type="text" name="discount_price" value="{{$product->discount_price ? $product->discount_price : ''  }}" class="form-control"> 
                                         @error('discount_price') 
                                                 <span class="text-danger" > {{$message}} </span>
                                         @enderror
@@ -208,8 +208,8 @@
 				
 				                    <!-- /.box-header -->
 				                            <div class="box-body">
-						                        <textarea id="editor2" name="short_description" rows="10" cols="80">
-											        This is my textarea to be replaced with CKEditor.
+						                        <textarea id="editor2" name="short_description"  rows="10" cols="80">
+                                                    {{$product->short_description ? $product->short_description : ''  }}
 						                        </textarea>
 				                            </div>
 			                            </div>
@@ -229,7 +229,7 @@
 				                    <!-- /.box-header -->
 				                            <div class="box-body">
 						                        <textarea id="editor1" name="long_description" rows="10" cols="80">
-											        This is my textarea to be replaced with CKEditor.
+                                                    {{$product->long_description ? $product->long_description : '' }}
 						                        </textarea>
 				                            </div>
 			                            </div>
@@ -245,7 +245,7 @@
 								    <div class="controls">
 									    <input type="file" name="product_thambnail" onChange="mainThamUrl(this)" class="form-control" > 
                                     
-                                        <img src="" id ="mainThamb">
+                                        <img src="{{$product->product_thambnail ? asset($product->product_thambnail) : ''}}" id ="mainThamb">
                                     </div>
 							    </div>
                             </div>
@@ -253,7 +253,13 @@
                                 <h5>Product Images <span class="text-danger">*</span></h5>
 								    <div class="controls">
 									    <input type="file" name="multi_img[]" class="form-control" multiple="" id="multiImg" > 
-                                        <div class="row" id ="preview_img"></div>
+                                        <div class="row" id ="preview_img"> 
+
+                                                @foreach($multiImage as $img)
+                                                    {{$img->photo_name}}
+                                                    <!-- <img id = "$img->id" src="{{asset($img->photo_name)}}" width='100px' height='100px' >-->
+                                                @endforeach
+                                        </div>
                                     </div>
 
                             </div>     

@@ -67,12 +67,16 @@ Route :: prefix('category')->group(function (){
     Route::post('/sub/sub/update',[SubCategoryController::class, 'SubSubCategoryUpdate'])->name('sub.subcategory.update')->middleware('admin'); // Update Sub-SubCategory
 
     Route::get('/subcategory/ajax/{category_id}',[SubCategoryController::class, 'GetSubCategory']); // Get Sub Category for to load Drop Down 
+    Route::get('/sub-subcategory/ajax/{subcategory_id}',[SubCategoryController::class, 'GetSubSubCategory']); // Get Sub Category for to load Drop Down 
 }); // End Category Route
 
 // Products Route
 Route :: prefix('product')->group(function (){
-    Route::get('/add',[ProductController::class, 'AddProduct'])->name('add-product')->middleware('admin'); // View Page For Add Product
-
+    Route::get('/add',[ProductController::class, 'AddProduct'])->name('add.product')->middleware('admin'); // View Page For Add Product
+    Route::post('/Store',[ProductController::class, 'StoreProduct'])->name('product.store')->middleware('admin'); // View Page For Add Product    
+    Route::get('/manage',[ProductController::class, 'ManageProduct'])->name('manage.product')->middleware('admin'); // View product page
+    Route::get('/edit/{product_id}',[ProductController::class, 'EditProduct'])->name('product.edit')->middleware('admin'); // View Edit Page For Product
+    Route::get('/delete/{product_id}',[ProductController::class, 'DeleteProduct'])->name('product.delete')->middleware('admin'); // Delete Product
 });
 
 //End Products Routs

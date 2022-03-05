@@ -136,5 +136,11 @@ class SubCategoryController extends Controller
         $data = SubCategory::where('category_id',$category_id)->orderBy('subcategory_name','ASC')->get();
         return json_encode($data);
     } // End Function
+
+    // Get Sub-Sub Category To load DropDown With JavaScript
+    public function GetSubSubCategory($subcategory_id){
+        $subsubcat = SubSubCategory::where('subcategory_id',$subcategory_id)->orderBy('subsubcategory_name','ASC')->get();
+        return json_encode($subsubcat);
+    }// End Function
 }
 
