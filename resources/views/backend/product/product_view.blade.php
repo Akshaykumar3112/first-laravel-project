@@ -46,8 +46,18 @@
                                         <td>{{$row->product_qty}}</td>
                                         <td>{{$row->product_size}}</td>
                                         <td>{{$row->product_color}}</td>
-                                        <td>{{$row->selling_price}}</td>
-                                        <td>{{$row->discount_price}}</td>
+                                        <td>{{$row->selling_price}}$</td>
+                                        <td>
+											@if($row->discount_price == NULL)
+												<span Class="badge badge-pill badge-danger"> No Discount </span>
+											@else
+											@php 
+											$amount = $row->selling_price - $row->discount_price;
+												$discount = ($amount/$row->selling_price)*100;
+											@endphp
+												<span class="badge badge-pill badge-danger"> {{round($discount)}} %<span>
+											@endif
+										</td>
                                         <td>{{$row['category']['category_name']}}</td>
                                         <td>{{$row['subcategory']['subcategory_name']}}</td>
 								        <td>{{$row['subsubcategory']['subsubcategory_name']}}</td>
@@ -55,9 +65,9 @@
                                         <td>{{$row->featured}}</td>
                                         <td>{{$row->special_offer}}</td>
                                         <td>{{$row->special_deals}}</td>
-                                        <td>{{$row->status}}</td>
-                                        <td><a href="{{route('product.edit',$row->id)}}" class="btn btn-info" style="margin-right:10px;" > <i class="fa fa-pencil"> </i></a>    
-                                            <a href="{{route('product.delete', $row->id)}}" id="delete" class="btn btn-danger" style="margin-top: 4px;" ><i class="fa fa-trash" > </i></a> </td>
+                                        <td><a href="{{route('product.status',$row->id)}}" class="btn btn-info"  >{{ $row->status == 1 ? 'Active' : 'Deactive'}} </a></td>
+                                        <td><a href="{{route('product.edit',$row->id)}}" class="btn btn-info" style="margin-right:10px;" title="Edit" > <i class="fa fa-pencil"> </i></a>    
+                                            <a href="{{route('product.delete', $row->id)}}" id="delete" class="btn btn-danger" style="margin-top: 4px;" title="Delete" ><i class="fa fa-trash" > </i></a> </td>
 							        </tr>
                                     @endforeach	
 						        </tbody>

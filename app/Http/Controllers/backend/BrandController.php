@@ -23,9 +23,7 @@ class BrandController extends Controller
         $image = $request->file('brand_image');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(300,300)->save('images/brand/'.$name_gen);
-        //$image->move(public_path('images/brand'),$name_gen);
-        
-        
+  
         Brand::insert([
             'brand_name' => $request->brand_name,
             'brand_image' => $name_gen,

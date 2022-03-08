@@ -306,7 +306,7 @@
                         </div>
 
 						<div class="text-xs-right">
-							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add product" >
+							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add Product" >
 						</div>
 					</form>
 

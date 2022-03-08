@@ -5,9 +5,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\frontend\IndexController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,10 +79,25 @@ Route :: prefix('product')->group(function (){
     Route::get('/manage',[ProductController::class, 'ManageProduct'])->name('manage.product')->middleware('admin'); // View product page
     Route::get('/edit/{product_id}',[ProductController::class, 'EditProduct'])->name('product.edit')->middleware('admin'); // View Edit Page For Product
     Route::get('/delete/{product_id}',[ProductController::class, 'DeleteProduct'])->name('product.delete')->middleware('admin'); // Delete Product
+    Route::post('/update',[ProductController::class, 'UpdateProduct'])->name('product.update')->middleware('admin'); // View Page For Add Product
+    Route::get('/delete/image/{image_id}',[ProductController::class, 'DeleteProductMultiImages'])->name('delete.multImage')->middleware('admin'); // Delete Product
+    Route::get('/status/{product_id}',[ProductController::class, 'ProductStatus'])->name('product.status')->middleware('admin'); // Change Product Status
+
 });
 
 //End Products Routs
 
+//Sldier Routes
+Route :: prefix('slider')->group(function (){
+    Route::get('/view',[SliderController::class, 'SliderView'])->name('slider.view')->middleware('admin');
+    Route::post('/store',[SliderController::class, 'SliderStore'])->name('slider.store')->middleware('admin');
+    Route::get('/edit/{id}',[SliderController::class, 'SliderEdit'])->name('slider.edit')->middleware('admin');
+    Route::get('/delete/{id}',[SliderController::class, 'SliderDelete'])->name('slider.delete')->middleware('admin');
+    Route::post('/update',[SliderController::class, 'SliderUpdate'])->name('slider.update')->middleware('admin');
+    Route::get('/status/{id}',[SliderController::class, 'SliderStatus'])->name('slider.status')->middleware('admin');
+});
+
+//End Slider Routs
 
 /*------End Admin Route-------- */
 

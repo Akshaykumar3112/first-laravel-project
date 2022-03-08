@@ -58,6 +58,7 @@
 	<!-- Sunny Admin App -->
 	<script src="{{ asset('backend/js/template.js')}}"></script>
 	<script src="{{ asset('backend/js/pages/dashboard.js')}}"></script>
+  <script src="{{ asset('backend/js/pages/tooltip.js')}}"></script>
 	
   <!-- Data table --->
   <script src="{{asset('assets/vendor_components/datatable/datatables.min.js')}}"></script>
